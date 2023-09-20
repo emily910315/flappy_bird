@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        PipelineBorn();
+        PipelineBorn();//生成下一個水管
     }
 
     void Update()
