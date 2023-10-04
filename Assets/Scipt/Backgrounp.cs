@@ -14,6 +14,11 @@ public class Backgrounp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager._gameManager.gameSate != GameSate.Running)
+        {
+            return;
+        }
+
         this.gameObject.transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;//背景移動
         if (this.gameObject.transform.position.x <= -backgrounp_width)
         {

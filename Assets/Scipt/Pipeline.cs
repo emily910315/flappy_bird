@@ -14,6 +14,11 @@ public class Pipeline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager._gameManager.gameSate != GameSate.Running)
+        {
+            return;
+        }
+
         this.gameObject.transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;//水管移動
         if (this.transform.position.x <= x_Limit)
         {
