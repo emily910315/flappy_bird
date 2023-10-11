@@ -6,12 +6,12 @@ using TMPro;
 
 public class Bird : MonoBehaviour
 {
-    
+    private bool hasEnteredScoreZone = false;
     public Sprite[] birdSprites;// 存儲小鳥不同狀態的圖片
     public float score = 0;//分數
     [SerializeField]TextMeshProUGUI scoreText;// 顯示分數的TextMeshProUGUI元件
     public Vector2 bird_veloicity_y = new Vector2(1,5);// 小鳥的垂直速度向量
-    private bool hasEnteredScoreZone = false;
+    
     void Start()
     {
         // 如果分數文本不為空，將其設置為初始分數
