@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// 定義遊戲狀態的列舉型別
 public enum GameSate
 {
     Ready = 0,
@@ -16,33 +17,34 @@ public class GameManager : MonoBehaviour
     public GameObject pipelineObj;//生成的下一個水管物件
 
     public float pipelinePos_x = 5;//下一個水管寬度
-    public float pipelinePos_y = 4;
+    public float pipelinePos_y = 4;// 下一個水管高度
 
-    public float minRandom_y = 0.5f;
-    public float maxRandom_y = 1.5f;
+    public float minRandom_y = 0.5f;// 隨機高度的最小值
+    public float maxRandom_y = 1.5f;// 隨機高度的最大值
 
-    public float timer = 0;
-    public float randomTime = 2;
-    public float minRandomTime = 0.5f;
-    public float maxRandomTime = 1.5f;
+    public float timer = 0;// 計時器
+    public float randomTime = 2;// 隨機生成水管的時間間隔
+    public float minRandomTime = 0.5f;// 隨機生成時間的最小值
+    public float maxRandomTime = 1.5f;// 隨機生成時間的最大值
 
-    public GameSate gameSate = GameSate.Ready;
-    public Button start;
-    public Button restart;
+    public GameSate gameSate = GameSate.Ready;// 遊戲狀態
+    public Button start;// 開始按鈕
+    //public Button restart;// 重新開始按鈕
 
-    public static GameManager _gameManager;
-    public Rigidbody2D birdRigi;
-    public float birdGravity=1.5f;
+    public static GameManager _gameManager;// GameManager的靜態實例
+    public Rigidbody2D birdRigi;// 小鳥的Rigidbody2D元件
+    public float birdGravity=1.5f;// 小鳥的重力
 
     void Start()
     {
-        _gameManager = this;
+        _gameManager = this;// 設置GameManager的靜態實例
         start.gameObject.SetActive(true);//打開開始按鈕
-        restart.gameObject.SetActive(false);//隱藏重新開始按鈕
+        //restart.gameObject.SetActive(false);//隱藏重新開始按鈕
     }
 
     void Update()
     {
+        // 如果遊戲狀態不是運行中，則返回
         if (gameSate != GameSate.Running)
         {
             return;
@@ -56,20 +58,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 生成水管的方法
     void PipelineBorn()
     {
+        // 隨機設置水管的高度
         pipelinePos_y = Random.Range(minRandom_y,maxRandom_y);
 
+        // 設置生成下一個水管的位置
         Vector3 pipelinePos = new Vector3(pipelinePos_x, pipelinePos_y, pipelineObj.transform.position.z);//生成下一個水管位置
         Instantiate(pipelineObj,pipelinePos,pipelineObj.transform.rotation);
 
+        // 隨機設置下一次生成水管的時間
         randomTime = Random.Range(minRandomTime, maxRandomTime);//0.5-1.5秒內隨機產生生成水管
-        timer = 0;
+        timer = 0;// 重置計時器
     }
 
+    // 遊戲開始的方法
     public void GameStart()
     {
-        gameSate = GameSate.Running;//start時才可以做已下事情
+        gameSate = GameSate.Running;// 將遊戲狀態設置為運行中
         PipelineBorn();//生成下一個水管
 
         if (birdRigi != null)
@@ -78,12 +85,13 @@ public class GameManager : MonoBehaviour
         }
 
         start.gameObject.SetActive(false);//隱藏start按鈕
-        restart.gameObject.SetActive(false);//隱藏restart按鈕
+        //restart.gameObject.SetActive(false);//隱藏restart按鈕
     }
 
-    public void GameRestart()
-    {
-        SceneManager.LoadScene("SampleScene");
+    //// 遊戲重新開始的方法
+    //public void GameRestart()
+    //{
+    //    SceneManager.LoadScene("SampleScene");
         
-    }
+    //}
 }
