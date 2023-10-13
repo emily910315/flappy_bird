@@ -7,17 +7,19 @@ using TMPro;
 public class Bird : MonoBehaviour
 {
     private bool hasEnteredScoreZone = false;
-    public Sprite[] birdSprites;// 存儲小鳥不同狀態的圖片
     public float score = 0;//分數
-    [SerializeField]TextMeshProUGUI scoreText;// 顯示分數的TextMeshProUGUI元件
-    public Vector2 bird_veloicity_y = new Vector2(1,5);// 小鳥的垂直速度向量
-    
+    [SerializeField] TextMeshProUGUI scoreText;// 顯示分數的TextMeshProUGUI元件
+    //public Vector2 bird_veloicity_y = new Vector2(1,5);// 小鳥的垂直速度向量
+    private Collider2D lastPipeCollider = null;
+    private bool canScore = true;
+    public float scoreDelay ;
+
     void Start()
     {
         // 如果分數文本不為空，將其設置為初始分數
         if (scoreText != null)
         {
-            scoreText.text= score.ToString();
+            scoreText.text = score.ToString();
         }
 
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;//開始時重力為0
@@ -42,40 +44,57 @@ public class Bird : MonoBehaviour
         transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
 
 
-        
+
     }
 
-    
+
 
     //碰撞(當小鳥碰撞時的處理)
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+
         // 遊戲進入結束狀態(死亡)
-        // GameManager._gameManager.gameSate = GameSate.GameOver;
-        //this.GetComponent<SpriteRenderer>().sprite = birdSprites[2];//死亡後小鳥圖變死掉的樣子
+        GameManager._gameManager.gameSate = GameSate.GameOver;
 
         // 隱藏重新開始按鈕
         //GameManager._gameManager.restart.gameObject.SetActive(false);//隱藏restart按鈕
     }
 
-        // 當進入特定區域時的處理
-        private void OnTriggerEnter2D(Collider2D collision)
+    // 當進入特定區域時的處理
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // 如果碰撞物件標籤為"scorepipeline"
-        if (collision.gameObject.CompareTag("scorepipeline") && !hasEnteredScoreZone)
+        if (collision.gameObject.CompareTag("scorepipeline") && !hasEnteredScoreZone && canScore)
         {
             // 設置標誌為 true
             hasEnteredScoreZone = true;
 
-            //加分
+
+            canScore = false;
+
+
             score += 1;
+
             if (scoreText != null)
             {
-                // 更新分數顯示
                 scoreText.text = score.ToString();
             }
+
+
+            Invoke("ResetCanScore", scoreDelay);
         }
+
     }
+
+    private void ResetCanScore()
+    {
+        // Reset the scoring flag after the delay
+        canScore = true;
+    }
+
 
     // 在離開計分區域時重置標誌
     private void OnTriggerExit2D(Collider2D collision)

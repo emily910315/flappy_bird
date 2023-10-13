@@ -164,7 +164,7 @@ MonoBehaviour:
   gameSate: 0
   start: {fileID: 2102512794}
   birdRigi: {fileID: 778977567}
-  birdGravity: 1.5
+  birdGravity: 0
 --- !u!4 &381819876
 Transform:
   m_ObjectHideFlags: 0
@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 778977565}
   - component: {fileID: 778977568}
   - component: {fileID: 778977567}
-  - component: {fileID: 778977569}
+  - component: {fileID: 778977570}
   m_Layer: 0
   m_Name: airplane
   m_TagString: Untagged
@@ -862,12 +862,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d0b996256e7854e87b4b292e9d3fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdSprites: []
   score: 0
   scoreText: {fileID: 774287720}
-  bird_veloicity_y: {x: 0, y: 3}
---- !u!70 &778977569
-CapsuleCollider2D:
+  scoreDelay: 0.5
+--- !u!68 &778977570
+EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -879,9 +878,32 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: -0.0007749816}
-  m_Size: {x: 1.1286206, y: 0.7869259}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.56167287, y: 0.298896}
+  - {x: -0.5021305, y: -0.013476138}
+  - {x: -0.08875257, y: -0.05618059}
+  - {x: -0.19362314, y: -0.26370898}
+  - {x: -0.23106042, y: -0.39458466}
+  - {x: -0.069511846, y: -0.33735234}
+  - {x: 0.13501717, y: -0.07166938}
+  - {x: 0.38201123, y: -0.07828131}
+  - {x: 0.5708981, y: -0.03687438}
+  - {x: 0.541801, y: 0.09391481}
+  - {x: 0.40358487, y: 0.1726985}
+  - {x: 0.14172341, y: 0.15453567}
+  - {x: 0.05382207, y: 0.26048505}
+  - {x: -0.14749528, y: 0.3919673}
+  - {x: -0.23098409, y: 0.3585403}
+  - {x: -0.07562712, y: 0.13265504}
+  - {x: -0.42844546, y: 0.12753493}
+  - {x: -0.5007095, y: 0.2811208}
+  - {x: -0.56466484, y: 0.2813138}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &780284264
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager _gameManager;// GameManager的靜態實例
     public Rigidbody2D birdRigi;// 小鳥的Rigidbody2D元件
-    public float birdGravity=1.5f;// 小鳥的重力
+    public float birdGravity=0.5f;// 小鳥的重力
 
     void Start()
     {
@@ -79,10 +79,10 @@ public class GameManager : MonoBehaviour
         gameSate = GameSate.Running;// 將遊戲狀態設置為運行中
         PipelineBorn();//生成下一個水管
 
-        if (birdRigi != null)
-        {
-            birdRigi.gravityScale = birdGravity;//調整重力
-        }
+        //if (birdRigi != null)
+        //{
+        //    birdRigi.gravityScale = birdGravity;//調整重力
+        //}
 
         start.gameObject.SetActive(false);//隱藏start按鈕
         //restart.gameObject.SetActive(false);//隱藏restart按鈕
