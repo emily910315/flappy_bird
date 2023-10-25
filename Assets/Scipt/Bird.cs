@@ -12,7 +12,20 @@ public class Bird : MonoBehaviour
     //public Vector2 bird_veloicity_y = new Vector2(1,5);// 小鳥的垂直速度向量
     private Collider2D lastPipeCollider = null;
     private bool canScore = true;
-    public float scoreDelay ;
+    public float scoreDelay;
+
+    private Vector2 mousePosition;
+    private Vector2 distance;
+    Rigidbody2D rb20;
+    private Vector2 offset; // 用於記錄滑鼠按下位置和物體位置的偏移
+
+    public float fallSpeed = 5.0f; // 落下的速度
+
+    private bool isDragging = false;// 用來檢查是否正在拖拽
+    private bool allowAutoFall = false;// 控制是否允許自動落下
+    public float bufferTime = 10f;// 緩衝時間
+    private Vector2 lastMousePosition;
+    public float mouseMoveThreshold = 0.1f;
 
     void Start()
     {
@@ -22,7 +35,18 @@ public class Bird : MonoBehaviour
             scoreText.text = score.ToString();
         }
 
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;//開始時重力為0
+        rb20 = GetComponent<Rigidbody2D>();
+        rb20.gravityScale = 0;//開始時重力為0
+
+        StartCoroutine(EnableAutoFall()); // 啟用自動落下
+        lastMousePosition = Input.mousePosition;
+        
+    }
+
+    IEnumerator EnableAutoFall()
+    {
+        yield return new WaitForSeconds(bufferTime);
+        allowAutoFall = true; // 緩衝時間後允許自動落下
     }
 
 
@@ -34,19 +58,53 @@ public class Bird : MonoBehaviour
             return;
         }
 
-        // 取得小鳥的Rigidbody2D元件
-        //Rigidbody2D rigid = this.gameObject.GetComponent<Rigidbody2D>();
+        if (Input.GetMouseButton(0)) // 0 表示左鍵
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector2(mousePosition.x, mousePosition.y);
+        }
 
-        // 取得滑鼠位置
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 currentMousePosition = Input.mousePosition;
 
-        // 設置小鳥位置為滑鼠位置
-        transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        if (Vector2.Distance(currentMousePosition, lastMousePosition) > mouseMoveThreshold)
+        {
+            // 如果滑鼠有移動，重置緩衝時間
+            StartCoroutine(EnableAutoFall());
+        }
 
+        lastMousePosition = currentMousePosition;
+
+        if (allowAutoFall && !isDragging)
+        {
+            Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y - fallSpeed * Time.deltaTime);
+            transform.position = currentPosition;
+        }
+
+        
 
 
     }
 
+    private void OnMouseDown()
+    {
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        offset = currentPosition - mousePosition;
+        isDragging = true;
+    }    
+
+    private void OnMouseDrag()
+    {
+        Vector2 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = currentMousePos + offset;
+        rb20.velocity = Vector2.zero;
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        rb20.gravityScale = 3;
+        isDragging = false;
+    }
 
 
     //碰撞(當小鳥碰撞時的處理)
@@ -63,7 +121,7 @@ public class Bird : MonoBehaviour
         //GameManager._gameManager.restart.gameObject.SetActive(false);//隱藏restart按鈕
     }
 
-    // 當進入特定區域時的處理
+    //當進入特定區域時的處理
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 如果碰撞物件標籤為"scorepipeline"

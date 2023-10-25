@@ -65,7 +65,8 @@ public class GameManager : MonoBehaviour
         pipelinePos_y = Random.Range(minRandom_y,maxRandom_y);
 
         // 設置生成下一個水管的位置
-        Vector3 pipelinePos = new Vector3(pipelinePos_x, pipelinePos_y, pipelineObj.transform.position.z);//生成下一個水管位置
+        print("test");
+        Vector3 pipelinePos = new Vector2(pipelinePos_x, pipelinePos_y);//生成下一個水管位置
         Instantiate(pipelineObj,pipelinePos,pipelineObj.transform.rotation);
 
         // 隨機設置下一次生成水管的時間

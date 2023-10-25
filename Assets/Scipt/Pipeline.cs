@@ -16,12 +16,12 @@ public class Pipeline : MonoBehaviour
             return;
         }
 
-        this.gameObject.transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;//水管移動
+        this.gameObject.transform.position += Vector3.left * speed * Time.deltaTime;//水管移動
 
         // 如果水管位置超過指定寬度限制
         if (this.transform.position.x <= x_Limit)
         {
-            Destroy(this.gameObject);// 刪除水管物件
+            //Destroy(this.gameObject);// 刪除水管物件
         }
     }
 }
