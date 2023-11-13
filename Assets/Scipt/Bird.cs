@@ -27,6 +27,8 @@ public class Bird : MonoBehaviour
     private Vector2 lastMousePosition;
     public float mouseMoveThreshold = 0.1f;
 
+    [SerializeField] GameObject win;
+
     void Start()
     {
         // 如果分數文本不為空，將其設置為初始分數
@@ -116,6 +118,7 @@ public class Bird : MonoBehaviour
 
         // 遊戲進入結束狀態(死亡)
         GameManager._gameManager.gameSate = GameSate.GameOver;
+        win.SetActive(true);
 
         // 隱藏重新開始按鈕
         //GameManager._gameManager.restart.gameObject.SetActive(false);//隱藏restart按鈕

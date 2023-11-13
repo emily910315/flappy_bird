@@ -35,11 +35,57 @@ public class GameManager : MonoBehaviour
     public Rigidbody2D birdRigi;// 小鳥的Rigidbody2D元件
     public float birdGravity=0.5f;// 小鳥的重力
 
+
+    [SerializeField] GameObject bg;
+    [SerializeField] GameObject instruction;
+    [SerializeField] GameObject win;
+
+
+    void gamemeunopen()
+    {
+        Time.timeScale = 0f;
+        bg.SetActive(true);
+
+    }
+
+    public void gamemeunclose()
+    {
+        Time.timeScale = 1f;
+        bg.SetActive(false);
+        SceneManager.LoadScene("SampleScene");
+
+
+    }
+
+    public void instructionopen()
+    {
+        Time.timeScale = 0f;
+        instruction.SetActive(true);
+
+    }
+
+    public void instructionclose()
+    {
+        Time.timeScale = 1f;
+        bg.SetActive(false);
+        instruction.SetActive(false);
+        SceneManager.LoadScene("SampleSceen");
+    }
+
+    public void restart()
+    {
+        win.SetActive(false);
+        gamemeunopen();
+
+        SceneManager.LoadScene("SampleSceen");
+    }
+
+
+
     void Start()
     {
         _gameManager = this;// 設置GameManager的靜態實例
-        start.gameObject.SetActive(true);//打開開始按鈕
-        //restart.gameObject.SetActive(false);//隱藏重新開始按鈕
+        gamemeunopen();
     }
 
     void Update()
@@ -80,19 +126,8 @@ public class GameManager : MonoBehaviour
         gameSate = GameSate.Running;// 將遊戲狀態設置為運行中
         PipelineBorn();//生成下一個水管
 
-        //if (birdRigi != null)
-        //{
-        //    birdRigi.gravityScale = birdGravity;//調整重力
-        //}
+        gamemeunopen();
 
-        start.gameObject.SetActive(false);//隱藏start按鈕
-        //restart.gameObject.SetActive(false);//隱藏restart按鈕
     }
 
-    //// 遊戲重新開始的方法
-    //public void GameRestart()
-    //{
-    //    SceneManager.LoadScene("SampleScene");
-        
-    //}
 }
