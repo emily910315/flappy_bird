@@ -42,7 +42,7 @@ public class Bird : MonoBehaviour
 
         StartCoroutine(EnableAutoFall()); // 啟用自動落下
         lastMousePosition = Input.mousePosition;
-        
+
     }
 
     IEnumerator EnableAutoFall()
@@ -82,7 +82,7 @@ public class Bird : MonoBehaviour
             transform.position = currentPosition;
         }
 
-        
+
 
 
     }
@@ -93,7 +93,7 @@ public class Bird : MonoBehaviour
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = currentPosition - mousePosition;
         isDragging = true;
-    }    
+    }
 
     private void OnMouseDrag()
     {
@@ -132,22 +132,14 @@ public class Bird : MonoBehaviour
         {
             // 設置標誌為 true
             hasEnteredScoreZone = true;
-
-
             canScore = false;
-
-
             score += 1;
-
             if (scoreText != null)
             {
                 scoreText.text = score.ToString();
             }
-
-
             Invoke("ResetCanScore", scoreDelay);
         }
-
     }
 
     private void ResetCanScore()

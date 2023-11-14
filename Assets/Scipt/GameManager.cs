@@ -33,8 +33,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager _gameManager;// GameManager的靜態實例
     public Rigidbody2D birdRigi;// 小鳥的Rigidbody2D元件
-    public float birdGravity=0.5f;// 小鳥的重力
-
+    public float birdGravity = 0.5f;// 小鳥的重力
 
     [SerializeField] GameObject bg;
     [SerializeField] GameObject instruction;
@@ -45,23 +44,19 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         bg.SetActive(true);
-
     }
 
     public void gamemeunclose()
     {
         Time.timeScale = 1f;
         bg.SetActive(false);
-        SceneManager.LoadScene("SampleScene");
-
-
+        gameSate = GameSate.Running;
     }
 
     public void instructionopen()
     {
         Time.timeScale = 0f;
         instruction.SetActive(true);
-
     }
 
     public void instructionclose()
@@ -69,18 +64,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         bg.SetActive(false);
         instruction.SetActive(false);
-        SceneManager.LoadScene("SampleSceen");
+        gameSate = GameSate.Running;
     }
 
     public void restart()
     {
         win.SetActive(false);
-        gamemeunopen();
-
-        SceneManager.LoadScene("SampleSceen");
+        SceneManager.LoadScene("SampleScene");
     }
-
-
 
     void Start()
     {
@@ -108,12 +99,12 @@ public class GameManager : MonoBehaviour
     void PipelineBorn()
     {
         // 隨機設置水管的高度
-        pipelinePos_y = Random.Range(minRandom_y,maxRandom_y);
+        pipelinePos_y = Random.Range(minRandom_y, maxRandom_y);
 
         // 設置生成下一個水管的位置
         print("test");
         Vector3 pipelinePos = new Vector2(pipelinePos_x, pipelinePos_y);//生成下一個水管位置
-        Instantiate(pipelineObj,pipelinePos,pipelineObj.transform.rotation);
+        Instantiate(pipelineObj, pipelinePos, pipelineObj.transform.rotation);
 
         // 隨機設置下一次生成水管的時間
         randomTime = Random.Range(minRandomTime, maxRandomTime);//0.5-1.5秒內隨機產生生成水管

@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1306564315101420823}
   m_Layer: 0
   m_Name: pipeall
-  m_TagString: Untagged
+  m_TagString: scorepipeline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -302,7 +302,7 @@ MonoBehaviour:
   birdGravity: 0
   bg: {fileID: 1890677809}
   instruction: {fileID: 517319912}
-  win: {fileID: 0}
+  win: {fileID: 2146574625}
 --- !u!4 &381819876
 Transform:
   m_ObjectHideFlags: 0
@@ -1957,7 +1957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1890677810
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2033,6 +2033,10 @@ PrefabInstance:
     - target: {fileID: 2947704610750068886, guid: 5a3ffbee1b0c42a44a58250f533af960, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2947704610750068886, guid: 5a3ffbee1b0c42a44a58250f533af960, type: 3}
+      propertyPath: m_TagString
+      value: scorepipeline
       objectReference: {fileID: 0}
     - target: {fileID: 4528094413796186755, guid: 5a3ffbee1b0c42a44a58250f533af960, type: 3}
       propertyPath: m_RootOrder
@@ -2511,7 +2515,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 381819875}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: restartgame
+        m_MethodName: restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
