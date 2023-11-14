@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     public void instructionopen()
     {
         Time.timeScale = 0f;
+        bg.SetActive(false);
         instruction.SetActive(true);
     }
 
