@@ -39,7 +39,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject instruction;
     [SerializeField] GameObject win;
 
-
+    public void Quit()
+    {
+        Application.Quit();
+    }
     void gamemeunopen()
     {
         Time.timeScale = 0f;
